@@ -22,7 +22,7 @@ import {
     VStack,
   } from '@chakra-ui/react';
 import { fileUploadCss } from '../Auth/Register';
-
+// my name is aditya
 // profile component start from here
 const Profile = () => {
 
