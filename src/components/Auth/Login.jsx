@@ -20,7 +20,7 @@ const Login = () => {
             <form style={{ width: '100%' }}>
                 <Box my={'4'}>
                 <FormLabel htmlFor="email" children="Email Address" />
-                <input required 
+                <Input required 
                 id="email"
                  value={email} 
                  onChange={e => setEmail(e.target.value)} 
@@ -30,7 +30,7 @@ const Login = () => {
                 </Box>
                 <Box my={'4'}>
                     <FormLabel htmlFor="password" children="Password"/>
-                    <input required id="password" value={password} onChange={e => setPassword(e.target.value)} type={'password'} placeholder="Enter your Password" focusBorderColor="yellow.500"/>
+                    <Input required id="password" value={password} onChange={e => setPassword(e.target.value)} type={'password'} placeholder="Enter your Password" focusBorderColor="yellow.500"/>
                 </Box>
                 <Box>
                     <Link to="/forgetpassword"><Button fontSize={'sm'} variant="link" >Forget Password?</Button></Link>

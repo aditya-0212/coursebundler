@@ -9,8 +9,12 @@ import {DiAws} from "react-icons/di"
 import introVideo from '../../assets/videos/intro.mp4';
 const Home = () => {
   return (
+
+// main section start from here    
     <section className="home">
       <div className="container">
+
+{/* learn from the expert         */}
        <Stack
        direction={['column','row']}
        height="100%"
@@ -29,6 +33,8 @@ const Home = () => {
         <Image className="vector-graphics" boxSize={'md'} src={vg} objectFit="contain"/>
        </Stack>
       </div>
+
+{/* Brands banner */}
       <Box padding={"8"} bg="blackAlpha.800">
           <Heading textAlign={'center'} fontFamily="body" color={'yellow.400'} children="Our Brands"/>
       <HStack className='brandsBanner' justifyContent={'space-evenly'} marginTop="4">
@@ -39,6 +45,8 @@ const Home = () => {
           <DiAws/>
       </HStack>
       </Box>
+
+{/* video here       */}
     <div className="container2">
         <video  controls controlsList="nodownload nofullscreen noremoteplayback" disablePictureInPicture disableRemoteplayback src={introVideo}></video>
     </div>

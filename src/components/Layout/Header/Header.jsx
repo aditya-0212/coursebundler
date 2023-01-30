@@ -3,17 +3,21 @@ import {ColorModeSwitcher} from '../../../ColorModeSwitcher';
 import {Button,Drawer,DrawerOverlay,DrawerContent,DrawerHeader,DrawerBody,useDisclosure,VStack, HStack} from '@chakra-ui/react';
 import {RiMenu5Fill,RiLogoutBoxLine,RiDashboardFill} from 'react-icons/ri'
 import { Link } from 'react-router-dom';
+
+// Link button yha define kra gya hai
 const LinkButton = ({ url = '/', title = 'Home', onClose }) => (
   <Link onClick={onClose} to={url}>
     <Button variant={'ghost'}>{title}</Button>
   </Link>
 );
-const Header = () => {
-  const{isOpen,onOpen,onClose} = useDisclosure()
-  const isAuthenticated = false;
-  const user = {
+
+// main componet start from here
+   const Header = () => {
+    const{isOpen,onOpen,onClose} = useDisclosure()
+    const isAuthenticated = false;
+    const user = {
     role:'admin',
-  }
+   }
 
   const logoutHandler = () =>{
     console.log('logout');
@@ -23,16 +27,22 @@ const Header = () => {
     <>
     <ColorModeSwitcher/>
 
-    <Button onClick={onOpen} colorScheme={"yellow"} width="12" height={"12"} rounded="full" position={"fixed"} top="6" left="6">
+    <Button onClick={onOpen} colorScheme={"yellow"} width="12" height={"12"} rounded="full" zIndex={'overlay'} position={"fixed"} top="6" left="6">
       <RiMenu5Fill/>
     </Button>
+
+{/* Drawer start from here   onClose define krne pr window k kisi bhi place pr click krne pr ye Drawer close ho jata hai  */}
     <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
+
+{/* Drawer Overlay - ye Drawer k back wale part ko blur kr dega */}
      <DrawerOverlay backdropFilter={'blur(3px)'}/>
      <DrawerContent>
        <DrawerHeader borderBottomWidth={'1px'}>
          course Bundler
        </DrawerHeader>
        <DrawerBody>
+
+{/* Link button  - ye component upper define kra gya hai        */}
       <VStack spacing={'4'} alignItems="flext-start">
         <LinkButton onClose={onClose} url="/" title="Home"/>
         <LinkButton onClose={onClose} url="/courses" title="Browse All Courses"/>
@@ -40,6 +50,8 @@ const Header = () => {
         <LinkButton onClose={onClose} url="/contact" title="Contact us"/>
         <LinkButton onClose={onClose} url="/About" title="About"/>
       </VStack>
+
+ {/* authentication here      */}
       <HStack justifyContent={"space-evenly"} position="absolute" bottom={"2rem"} width="80%">
       {isAuthenticated ? (<>
       <VStack>
@@ -57,7 +69,7 @@ const Header = () => {
               </Button>
             </Link>
           )}
-          </VStack>
+      </VStack>
           </>):(
         <>
         <Link onClick={onClose} to="/login"><Button colorScheme={'yellow'}>Login</Button></Link>

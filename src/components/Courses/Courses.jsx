@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import {Button, Container,Heading,HStack,Image,Input,Text,Stack, VStack} from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
-//different courses ko rende krne k liye course component yha define kra gya
+//different courses ko render krne k liye course component yha define kra gya
 const Course = ({views,title,imageSrc,id,creator,description,lectureCount})=>{
     const addToPlaylistHandler = () =>{
         console.log("add to playlist")
@@ -13,13 +13,13 @@ const Course = ({views,title,imageSrc,id,creator,description,lectureCount})=>{
         <Heading textAling={['center','left']} maxW="200px" size={'sm'} fontFamily={'sans-serif'} noOfLines={3} children={title}/>
         <Text noOfLines={2} children={description}/>
         <HStack>
-            <Text  fontWeight={'bold'} children={'creator'} textTransform="uppercase"/>
+            <Text fontWeight={'bold'} children={'creator'} textTransform="uppercase"/>
             <Text children={creator} textTransform="uppercase" fontFamily={'body'}/>
         </HStack>
         <Heading  textAlign={'center'} size="xs" textTransform="uppercase" children={`Lectures - ${lectureCount}`} />
         <Heading textTransform="uppercase" size="xs" children={`Views-${views}`}/>
         <Stack direction={['column','row']} alignItems="center">
-            <Link to={`/course/${id}`}>
+            <Link to={`/courses/${id}`}>
             <Button colorScheme={'yellow'}>Watch Now</Button>
             </Link>
             <Button  variant={'ghost'}
@@ -48,7 +48,7 @@ const Courses = () => {
     focusBorderColor="yellow.500"/>
 
 {/* yha different category k course ki heding show kr rakhe hai     */}
-    <HStack overflow={"auto"} paddingY='8' css={{"&::-webkit-scrollbar":{
+    <HStack overflow={"auto"} paddingY='8'   css={{"&::-webkit-scrollbar":{
                 display:"none",
             },}}>
         {categories.map((item,index)=>(
