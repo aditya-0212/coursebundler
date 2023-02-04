@@ -19,6 +19,11 @@ import CoursePage from './components/CoursePage/CoursePage';
 import Profile from './components/Profile/Profile';
 import ChangePassword from './components/Profile/ChangePassword.jsx';
 import UpdateProfile from './components/Profile/UpdateProfile.jsx';
+import Dashboard from './components/Admin/Dashboard/Dashboard.jsx';
+import CreateCourse from './components/Admin/CreateCourse/CreateCourse.jsx';
+import AdminCourses from './components/Admin/AdminCourses/AdminCourses.jsx';
+import Users from './components/Admin/Users/Users.jsx';
+
 
 
 function App() {
@@ -49,6 +54,12 @@ function App() {
         <Route path="/paymentsuccess" element={<PaymentSuccess/>}/>
         <Route path="/paymentfail" element={<PaymentFail/>}/>
         <Route path="/course/:id" element={<CoursePage/>}/>
+
+        {/* Admin Routes */}
+        <Route path="/admin/dashboard" element={<Dashboard/>}/>
+        <Route path="/admin/createcourse" element={<CreateCourse/>}/>
+        <Route path="/admin/courses" element={<AdminCourses/>}/>
+        <Route path="/admin/users" element={<Users/>}/>
       </Routes>
 
       <Footer/>

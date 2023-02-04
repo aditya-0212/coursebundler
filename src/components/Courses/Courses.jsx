@@ -48,7 +48,7 @@ const Courses = () => {
     focusBorderColor="yellow.500"/>
 
 {/* yha different category k course ki heding show kr rakhe hai     */}
-    <HStack overflow={"auto"} paddingY='8'   css={{"&::-webkit-scrollbar":{
+    <HStack overflow={"auto"} paddingY='8'  justifyContent={['space-evenly','center']} css={{"&::-webkit-scrollbar":{
                 display:"none",
             },}}>
         {categories.map((item,index)=>(
@@ -65,8 +65,43 @@ const Courses = () => {
     alignItems={['center','flex-start']}
     >
   <Course title={"Sample1"} description={"Sample1"}
-  views={23} imageSrc={"https://www.shutterstock.com/image-vector/kids-learning-coding-programming-online-260nw-1777292972.jpg"} id={"sample 1"} creator={"Sample boy"} lectureCount={2} />   
-    </Stack>
+  views={23} 
+imageSrc={"https://www.shutterstock.com/image-vector/kids-learning-coding-programming-online-260nw-1777292972.jpg"} 
+  id={"sample 1"} creator={"Sample boy"} lectureCount={2} /> 
+  <Course title={"Sample1"} description={"Sample1"}
+  views={23} 
+imageSrc={"https://www.shutterstock.com/image-vector/kids-learning-coding-programming-online-260nw-1777292972.jpg"} 
+  id={"sample 1"} creator={"Sample boy"} lectureCount={2} /> 
+  <Course title={"Sample1"} description={"Sample1"}
+  views={23} 
+imageSrc={"https://www.shutterstock.com/image-vector/kids-learning-coding-programming-online-260nw-1777292972.jpg"} 
+  id={"sample 1"} creator={"Sample boy"} lectureCount={2} /> 
+  <Course title={"Sample1"} description={"Sample1"}
+  views={23} 
+imageSrc={"https://www.shutterstock.com/image-vector/kids-learning-coding-programming-online-260nw-1777292972.jpg"} 
+  id={"sample 1"} creator={"Sample boy"} lectureCount={2} /> 
+  <Course title={"Sample1"} description={"Sample1"}
+  views={23} 
+imageSrc={"https://www.shutterstock.com/image-vector/kids-learning-coding-programming-online-260nw-1777292972.jpg"} 
+  id={"sample 1"} creator={"Sample boy"} lectureCount={2} /> 
+  <Course title={"Sample1"} description={"Sample1"}
+  views={23} 
+imageSrc={"https://www.shutterstock.com/image-vector/kids-learning-coding-programming-online-260nw-1777292972.jpg"} 
+  id={"sample 1"} creator={"Sample boy"} lectureCount={2} /> 
+  <Course title={"Sample1"} description={"Sample1"}
+  views={23} 
+imageSrc={"https://www.shutterstock.com/image-vector/kids-learning-coding-programming-online-260nw-1777292972.jpg"} 
+  id={"sample 1"} creator={"Sample boy"} lectureCount={2} /> 
+  <Course title={"Sample1"} description={"Sample1"}
+  views={23} 
+imageSrc={"https://www.shutterstock.com/image-vector/kids-learning-coding-programming-online-260nw-1777292972.jpg"} 
+  id={"sample 1"} creator={"Sample boy"} lectureCount={2} /> 
+  <Course title={"Sample1"} description={"Sample1"}
+  views={23} 
+imageSrc={"https://www.shutterstock.com/image-vector/kids-learning-coding-programming-online-260nw-1777292972.jpg"} 
+  id={"sample 1"} creator={"Sample boy"} lectureCount={2} /> 
+  
+  </Stack>
     </Container>
   )
 }

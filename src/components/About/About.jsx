@@ -13,6 +13,7 @@ import {
   import { RiSecurePaymentFill } from 'react-icons/ri';
   import { Link } from 'react-router-dom';
   import introVideo from '../../assets/videos/intro.mp4';
+  import image from '../../assets/images/aditya.jpg';
   import termsAndCondition from '../../assets/docs/termsAndCondition';
 
 
@@ -21,7 +22,7 @@ const Founder = () => (
     <Stack direction={['column', 'row']} spacing={['4', '16']} padding={'8'}>
         <VStack>
       <Avatar
-        src="https://www.mykhel.com/thumb/247x100x233/cricket/players/8/3788.jpg"
+        src={image}
         boxSize={['40', '48']}
       />
       <Text children="Co-Founder" opacity={0.7} />

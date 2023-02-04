@@ -22,14 +22,14 @@ import {
     VStack,
   } from '@chakra-ui/react';
 import { fileUploadCss } from '../Auth/Register';
-// my name is aditya
+
 // profile component start from here
 const Profile = () => {
 
 //  this is oject of that user who loged in course   
     const user = {
-        name:'abhishek',
-        email:'abhi@gmail.com',
+        name:'Aditya Choubisa',
+        email:'adityachoubisa02@gmail.com',
         createdAt : String(new Date().toISOString()),
         role:"user",
         subscription:{

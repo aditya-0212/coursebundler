@@ -35,9 +35,9 @@ const Home = () => {
       </div>
 
 {/* Brands banner */}
-      <Box padding={"8"} bg="blackAlpha.800">
+      <Box padding={"8"} bg="blackAlpha.800" w='100vw'>
           <Heading textAlign={'center'} fontFamily="body" color={'yellow.400'} children="Our Brands"/>
-      <HStack className='brandsBanner' justifyContent={'space-evenly'} marginTop="4">
+      <HStack className='brandsBanner' justifyContent={'space-between'} marginTop="4">
           <CgGoogle/>
           <CgYoutube/>
           <SiCoursera/>

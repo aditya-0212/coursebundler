@@ -4,6 +4,7 @@
     box-sizing:border-box;
 }
 
+
 .vector-graphics{
     filter:drop-shadow(0 40px 10px rgba(0,0,0,0.3));
     animation: vectorAnimation 1s infinite ease-in-out alternate;  
@@ -53,7 +54,7 @@
 }
 
 .course{
-    margin-bottom: 100rem;
+    margin-bottom: 1rem;
     transition: all 0.5s;
 }
 

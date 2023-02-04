@@ -14,7 +14,7 @@ const LinkButton = ({ url = '/', title = 'Home', onClose }) => (
 // main componet start from here
    const Header = () => {
     const{isOpen,onOpen,onClose} = useDisclosure()
-    const isAuthenticated = false;
+    const isAuthenticated = true;
     const user = {
     role:'admin',
    }
@@ -62,7 +62,7 @@ const LinkButton = ({ url = '/', title = 'Home', onClose }) => (
           Logout</Button>
           </HStack>
           {user && user.role === 'admin' && (
-            <Link onClick={onClose} to="/admin/dashbord">
+            <Link onClick={onClose} to="/admin/dashboard">
               <Button colorScheme={'purple'} variant="ghost"> 
                 <RiDashboardFill style={{margin:'4px'}}/>
                 Dashboard
