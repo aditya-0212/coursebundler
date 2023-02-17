@@ -10,7 +10,8 @@ import {
     VStack,
   } from '@chakra-ui/react';
   import { Link } from 'react-router-dom';
-
+  import { useDispatch } from 'react-redux';
+  import { register } from '../../redux/actions/user';
   // css object for the styling choose file
   export const fileUploadCss = {
     cursor: 'pointer',
@@ -44,6 +45,23 @@ const Register= () => {
             setImage(file);
         }
     }
+
+    //submitHandler function
+    const dispatch = useDispatch();
+    const submitHandler = (e) =>{
+        e.preventDefault();
+        //The FormData interface provides a way to construct a set of key/value pairs representing form fields and their values
+        //Creates a new FormData object.
+        const myForm = new FormData();
+
+        //Appends a new value onto an existing key inside a FormData object, or adds the key if it does not already exist.
+        myForm.append('name',name);
+        myForm.append('email',email);
+        myForm.append('password',password);
+//yha compulsory file name hi put krna hai because backend me multer me file name hi put kra gya hai        
+        myForm.append('file',image);
+        dispatch(register(myForm));
+    }
   return (
       //from here main code start
     <Container h={'95vh' } >
@@ -51,7 +69,7 @@ const Register= () => {
             <Heading textTransform={'uppercase'} children={'Registration'}/>
 
   {/* from here we start our form           */}
-            <form style={{ width: '80%' }} >
+            <form onSubmit={submitHandler} style={{ width: '80%' }} >
 
 {/* This is for showing Avatar         */}
           <Box my="4" display={'flex'} justifyContent="center">

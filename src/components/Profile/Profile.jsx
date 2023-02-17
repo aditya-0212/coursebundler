@@ -22,34 +22,24 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { fileUploadCss } from '../Auth/Register';
+import { useDispatch } from 'react-redux';
+import { updateProfile, updateProfilePicture } from '../../redux/actions/profle';
 // profile component start from here
-const Profile = () => {
-  //  this is oject of that user who loged in course
-  const user = {
-    name: 'Aditya Choubisa',
-    email: 'adityachoubisa02@gmail.com',
-    createdAt: String(new Date().toISOString()),
-    role: 'user',
-    subscription: {
-      status: 'active',
-    },
-    playlist: [
-      {
-        course: 'sadasd',
-        poster:
-          'https://img.freepik.com/free-vector/web-development-programmer-engineering-coding-website-augmented-reality-interface-screens-developer-project-engineer-programming-software-application-design-cartoon-illustration_107791-3863.jpg',
-      },
-    ],
-  };
-
+const Profile = ({user}) => {
+  
   //removeFromPlayListHandler function
   const removeFromPlaylistHandler = id => {
     console.log(id);
   };
 
   //changeImageSubmitHandler function
+  const dispatch = useDispatch();
+
   const changeImageSubmitHandler = (e, image) => {
     e.preventDefault();
+    const myForm = new FormData();
+    myForm.append('file',image);
+    dispatch(updateProfilePicture(myForm))
   };
   const { isOpen, onClose, onOpen } = useDisclosure();
   return (
@@ -67,7 +57,7 @@ const Profile = () => {
       >
         {/* This is for avatar           */}
         <VStack>
-          <Avatar boxSize={'48'} />
+          <Avatar boxSize={'48'} src={user.avatar.url}/>
           <Button onClick={onOpen} colorScheme={'yellow'} variant="ghost">
             Change Photo
           </Button>
@@ -167,6 +157,7 @@ export default Profile;
 function ChangePhotoBox({ isOpen, onClose, changeImageSubmitHandler }) {
   const [image, setImage] = useState('');
   const [imagePrev, setImagePrev] = useState('');
+  //change Image here
   const changeImage = e => {
     const file = e.target.files[0];
     const reader = new FileReader();

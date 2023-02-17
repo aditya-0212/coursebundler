@@ -1,8 +1,18 @@
 import React,{useState} from 'react'
 import { Button, Container, Heading, Input, VStack } from '@chakra-ui/react';
+import { changePassword } from '../../redux/actions/profle';
+import { useDispatch } from 'react-redux';
 const ChangePassword = () => {
-    const [oldPassword,setOldPassword] = useState();
-    const [newPassword,setNewPassword] = useState();
+    const [oldPassword,setOldPassword] = useState('');
+    const [newPassword,setNewPassword] = useState('');
+
+//submitHandler
+    const dispatch = useDispatch();
+    const submitHandler = (e) =>{
+      console.log("aditya");
+      e.preventdefault();
+      dispatch(changePassword(oldPassword, newPassword));
+    };
   return (
    <Container py="16" minH={'90vh'}>
   <form>
@@ -25,7 +35,7 @@ const ChangePassword = () => {
             focusBorderColor="yellow.500"
           />
 
-          <Button w="full" colorScheme={'yellow'} type="submit">
+          <Button onClick={submitHandler} w="full" colorScheme={'yellow'} type="submit">
            Change
           </Button>
       </VStack>

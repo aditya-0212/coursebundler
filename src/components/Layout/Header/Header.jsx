@@ -3,6 +3,8 @@ import {ColorModeSwitcher} from '../../../ColorModeSwitcher';
 import {Button,Drawer,DrawerOverlay,DrawerContent,DrawerHeader,DrawerBody,useDisclosure,VStack, HStack} from '@chakra-ui/react';
 import {RiMenu5Fill,RiLogoutBoxLine,RiDashboardFill} from 'react-icons/ri'
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../../redux/actions/user';
 
 // Link button yha define kra gya hai
 const LinkButton = ({ url = '/', title = 'Home', onClose }) => (
@@ -12,16 +14,14 @@ const LinkButton = ({ url = '/', title = 'Home', onClose }) => (
 );
 
 // main componet start from here
-   const Header = () => {
+   const Header = ({isAuthenticated=false,user}) => {
     const{isOpen,onOpen,onClose} = useDisclosure()
-    const isAuthenticated = true;
-    const user = {
-    role:'admin',
-   }
-
-  const logoutHandler = () =>{
-    console.log('logout');
+    
+    //logout handler
+    const dispatch = useDispatch();
+    const logoutHandler = () =>{
     onClose();
+    dispatch(logout());
   }
   return (
     <>

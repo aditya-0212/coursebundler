@@ -1,16 +1,16 @@
-import React from 'react';
-import {BrowserRouter as Router,Route,Routes} from "react-router-dom"
-import Home from './components/Home/Home.jsx'
-import Header from './components/Layout/Header/Header'
-import Courses from './components/Courses/Courses'
-import Footer  from './components/Layout/Footer/Footer'
-import Login from './components/Auth/Login'
-import Register from './components/Auth/Register'
-import ForgetPassword from './components/Auth/ForgetPassword'
-import ResetPassword from './components/Auth/ResetPassword'
-import Contact from './components/Contact/Contact'
-import Request from './components/Request/Request'
-import About from './components/About/About'
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './components/Home/Home.jsx';
+import Header from './components/Layout/Header/Header';
+import Courses from './components/Courses/Courses';
+import Footer from './components/Layout/Footer/Footer';
+import Login from './components/Auth/Login';
+import Register from './components/Auth/Register';
+import ForgetPassword from './components/Auth/ForgetPassword';
+import ResetPassword from './components/Auth/ResetPassword';
+import Contact from './components/Contact/Contact';
+import Request from './components/Request/Request';
+import About from './components/About/About';
 import Subscribe from './components/Payments/Subscribe';
 import PaymentFail from './components/Payments/PaymentFail';
 import NotFound from './components/Layout/NotFound/NotFound';
@@ -23,48 +23,164 @@ import Dashboard from './components/Admin/Dashboard/Dashboard.jsx';
 import CreateCourse from './components/Admin/CreateCourse/CreateCourse.jsx';
 import AdminCourses from './components/Admin/AdminCourses/AdminCourses.jsx';
 import Users from './components/Admin/Users/Users.jsx';
-
-
+import { useDispatch, useSelector } from 'react-redux';
+import toast, { Toaster } from 'react-hot-toast';
+import { loaduser } from './redux/actions/user.js';
+import { ProtectedRoute } from 'protected-route-react';
+import Loader from './components/Loader/Loader.jsx';
 
 function App() {
-
-
-  //ye kisi bhi video pr right click to remove krne k liye ye method use kiya jata hai
+  // ye kisi bhi video pr right click to remove krne k liye ye method use kiya jata hai
   // window.addEventListener("contextmenu",(e)=>{
   //   e.preventDefault();
   // })
+
+  //useSelector ki help se ham state ki value ko access kr sakte hai
+  //redux ki vajah se ham state ko khi bhi use kr sakte hai
+  const { isAuthenticated, user, message, error,loading } = useSelector(
+    state => state.user
+  );
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch({ type: 'clearError' });
+    }
+
+    if (message) {
+      toast.success(message);
+      dispatch({ type: 'clearMessage' });
+    }
+  }, [dispatch, error, message]);
+
+  useEffect(() => {
+    dispatch(loaduser());
+  }, [dispatch]);
+
   return (
     <Router>
-      <Header/>
+      {
+        loading ? (<Loader/>) : (
+          <>
+          <Header isAuthenticated={isAuthenticated} user={user} />
       <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/courses" element={<Courses/>}/>
-        <Route path="/request" element={<Request/>}/>
-        <Route path="/contact" element={<Contact/>}/>
-        <Route path="/about" element={<About/>}/>
-        <Route path="/profile" element={<Profile/>}/>
-        <Route path="/register" element={<Register/>}/>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/changepassword" element={<ChangePassword/>}/>
-        <Route path="/updateprofile" element={<UpdateProfile/>}/>
-        <Route path="/forgetpassword" element={<ForgetPassword/>}/>
-        <Route path="/resetpassword/:token" element={<ResetPassword/>}/>
-        <Route path="/subscribe" element={<Subscribe/>}/>
-        <Route path="*" element={<NotFound/>}/>
-        <Route path="/paymentsuccess" element={<PaymentSuccess/>}/>
-        <Route path="/paymentfail" element={<PaymentFail/>}/>
-        <Route path="/course/:id" element={<CoursePage/>}/>
-
+        <Route path="/" element={<Home />} />
+        <Route path="/courses" element={<Courses />} />
+        <Route path="/request" element={<Request />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<About />} />
+        {/* agar authenticated hoga user tab hi profile ko access kr paega */} {' '}
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Profile user={user}/>
+            </ProtectedRoute>
+          }
+        />
+         ̰
+        {/* agar login nhi hai than register ka page accessable hai aur agar login hai to profile wale page pr redirect ho jaenge */}
+        <Route
+          path="/register"
+          element={
+            <ProtectedRoute
+              isAuthenticated={!isAuthenticated}
+              redirect="/profile"
+            >
+              <Register />
+            </ProtectedRoute>
+          }
+        />
+        {/* agar login nhi hai to /login route dikhega otherwise /profile pr redirect kr denge means profile  dikhega */}
+        <Route
+          path="/login"
+          element={
+            <ProtectedRoute
+              isAuthenticated={!isAuthenticated}
+              redirect="/profile"
+            >
+              <Login />
+            </ProtectedRoute>
+          }
+        />
+        {/* agar isAuthenticated hai tab hi changepassword and updateProfile ko  accessable hai */}
+        <Route
+          path="/changepassword"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <ChangePassword />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/updateprofile"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <UpdateProfile />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/forgetpassword" element={<ForgetPassword />} />
+        <Route path="/resetpassword/:token" element={<ResetPassword />} />
+         ̰
+        {/* agar authenticated hai  tab hi subscribe kr paega */}
+        <Route
+          path="/subscribe"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Subscribe />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="*" element={<NotFound />} />
+        <Route path="/paymentsuccess" element={<PaymentSuccess />} />
+        <Route path="/paymentfail" element={<PaymentFail />} />
+        <Route path="/course/:id" element={<CoursePage />} />
         {/* Admin Routes */}
-        <Route path="/admin/dashboard" element={<Dashboard/>}/>
-        <Route path="/admin/createcourse" element={<CreateCourse/>}/>
-        <Route path="/admin/courses" element={<AdminCourses/>}/>
-        <Route path="/admin/users" element={<Users/>}/>
+        {/* admin k route ab sirf admin hi access kr paega aur agar admin nhi hoga to ye profile pr redirect ho jaega */}
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectedRoute
+              adminRoute={true}
+              isAuthenticated={isAuthenticated}
+              isAdmin={user && user.role==='admin'}
+            >
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/admin/createcourse" element={<ProtectedRoute
+              adminRoute={true}
+              isAuthenticated={isAuthenticated}
+              isAdmin={user && user.role==='admin'}
+            >
+              <CreateCourse />
+            </ProtectedRoute>} />
+        <Route path="/admin/courses" element={<ProtectedRoute
+              adminRoute={true}
+              isAuthenticated={isAuthenticated}
+              isAdmin={user && user.role==='admin'}
+            >
+              <AdminCourses />
+            </ProtectedRoute>} />
+        <Route path="/admin/users" element={<ProtectedRoute
+              adminRoute={true}
+              isAuthenticated={isAuthenticated}
+              isAdmin={user && user.role==='admin'}
+            >
+              <Users />
+            </ProtectedRoute>} />
       </Routes>
 
-      <Footer/>
+      <Footer />
+      <Toaster />
+          </>
+        )
+      }
     </Router>
   );
 }
 
-export default App;  
+export default App;
