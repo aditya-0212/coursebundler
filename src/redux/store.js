@@ -18,4 +18,4 @@ const store = configureStore({
 
 export default store;
 
-export const server = 'https://coursebundlerserver-six.vercel.app/api/v1';
+export const server = 'https://adityaclassesbackend.onrender.com';
