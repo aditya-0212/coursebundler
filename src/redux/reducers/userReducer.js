@@ -18,7 +18,7 @@ export const userReducer = createReducer(
       state.error = action.payload;
     },
 
-//logout
+    //logout
     logoutRequest: state => {
       state.loading = true;
     },
@@ -34,7 +34,7 @@ export const userReducer = createReducer(
       state.error = action.payload;
     },
 
-//loadUser
+    //loadUser
     loadUserRequest: state => {
       state.loading = true;
     },
@@ -49,7 +49,7 @@ export const userReducer = createReducer(
       state.error = action.payload;
     },
 
-//register    
+    //register
     registerRequest: state => {
       state.loading = true;
     },
@@ -80,7 +80,7 @@ export const userReducer = createReducer(
 //this is profileReducer
 export const profileReducer = createReducer(
   {},
-//updateProfile  
+  //updateProfile
   {
     updateProfileRequest: state => {
       state.loading = true;
@@ -94,7 +94,7 @@ export const profileReducer = createReducer(
       state.error = action.payload;
     },
 
-//updateProfilePicture    
+    //updateProfilePicture
     updateProfilePictureRequest: state => {
       state.loading = true;
     },
@@ -107,7 +107,7 @@ export const profileReducer = createReducer(
       state.error = action.payload;
     },
 
-//changePassword
+    //changePassword
     changePasswordRequest: state => {
       state.loading = true;
     },
@@ -119,13 +119,48 @@ export const profileReducer = createReducer(
       state.loading = false;
       state.error = action.payload;
     },
+    forgetPasswordRequest: state => {
+      state.loading = true;
+    },
+    forgetPasswordSuccess: (state, action) => {
+      state.loading = false;
+      state.message = action.payload;
+    },
+    forgetPasswordFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    resetPasswordRequest: state => {
+      state.loading = true;
+    },
+    resetPasswordSuccess: (state, action) => {
+      state.loading = false;
+      state.message = action.payload;
+    },
+    resetPasswordFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+
+    //removeFromPlaylistRequest
+    removeFromPlaylistRequest: state => {
+      state.loading = true;
+    },
+    removeFromPlaylistSuccess: (state, action) => {
+      state.loading = false;
+      state.message = action.payload;
+    },
+    removeFromPlaylistFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
     clearError: state => {
-        state.error = null;
-      },
-  
-      //jab bhi login success hoga to message show hoga  clearMessage ka use kek state se message remove kr denge
-      clearMessage: state => {
-        state.message = null;
-      },
+      state.error = null;
+    },
+
+    //jab bhi login success hoga to message show hoga  clearMessage ka use kek state se message remove kr denge
+    clearMessage: state => {
+      state.message = null;
+    },
   }
 );

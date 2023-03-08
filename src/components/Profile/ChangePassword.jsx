@@ -1,24 +1,44 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react';
 import { Button, Container, Heading, Input, VStack } from '@chakra-ui/react';
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 import { changePassword } from '../../redux/actions/profle';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 const ChangePassword = () => {
-    const [oldPassword,setOldPassword] = useState('');
-    const [newPassword,setNewPassword] = useState('');
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
 
-//submitHandler
-    const dispatch = useDispatch();
-    const submitHandler = (e) =>{
-      console.log("aditya");
-      e.preventdefault();
-      dispatch(changePassword(oldPassword, newPassword));
-    };
+  //submitHandler
+ 
+  const dispatch = useDispatch();
+  const submitHandler = e => {
+    e.preventDefault();
+    dispatch(changePassword(oldPassword, newPassword));
+  };
+
+  const { loading, message, error } = useSelector(state => state.profile);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch({ type: 'clearError' });
+    }
+    if (message) {
+      toast.success(message);
+      dispatch({ type: 'clearMessage' });
+    }
+  }, [dispatch, error, message]);
   return (
-   <Container py="16" minH={'90vh'}>
-  <form>
-      <Heading children="Change Password" my="16" textTransform={'uppercase'} textAlign={['center','left']}/>
-      <VStack spacing={'8'}>
-      <Input
+    <Container py="16" minH={'90vh'}>
+      <form onSubmit={submitHandler}>
+        <Heading
+          children="Change Password"
+          my="16"
+          textTransform={'uppercase'}
+          textAlign={['center', 'left']}
+        />
+        <VStack spacing={'8'}>
+          <Input
             required
             value={oldPassword}
             onChange={e => setOldPassword(e.target.value)}
@@ -35,13 +55,13 @@ const ChangePassword = () => {
             focusBorderColor="yellow.500"
           />
 
-          <Button onClick={submitHandler} w="full" colorScheme={'yellow'} type="submit">
-           Change
+          <Button isLoading={loading} w="full" colorScheme={'yellow'} type="submit">
+            Change
           </Button>
-      </VStack>
-  </form>
-   </Container>
-  )
-}
+        </VStack>
+      </form>
+    </Container>
+  );
+};
 
-export default ChangePassword
+export default ChangePassword;

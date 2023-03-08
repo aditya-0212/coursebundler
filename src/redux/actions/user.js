@@ -7,7 +7,7 @@ export const login = (email,password)=> async (dispatch)=>{
           dispatch({type:'loginRequest'});
      
           
-          const { data } =  await axios.post('http://localhost:4000/api/v1/login',{email,password},{
+          const { data } =  await axios.post(`${server}/login`,{email,password},{
               headers:{
                   "content-type":"application/json",
               },
@@ -25,13 +25,13 @@ export const login = (email,password)=> async (dispatch)=>{
 };
 
 //getMyProfile
-export const loaduser = () => async dispatch => {
+export const loadUser = () => async dispatch => {
     try{
         dispatch({type:'loadUserRequest'});
 
         //yha get request kr rhe hai isliye hame kuch bhi pass krne ki need nhi hai aur headers ki need bhi nhi hai
         const { data } = await axios.get(
-            'http://localhost:4000/api/v1/me',
+            `${server}/me`,
             {
                 withCredentials:true,
             }
@@ -40,7 +40,7 @@ export const loaduser = () => async dispatch => {
         
         dispatch({type:'loadUserSuccess',payload:data.user});
     }catch(error){
-        dispatch({type:'loaduserFail', payload: error.response.data.message});
+        dispatch({type:'loadUserFail', payload: error.response.data.message});
     }
 };
 
@@ -49,7 +49,7 @@ export const logout = () => async dispatch => {
     try {
       dispatch({ type: 'logoutRequest' });
   
-      const { data } = await axios.get('http://localhost:4000/api/v1/logout', {
+      const { data } = await axios.get(`${server}/logout`, {
         withCredentials: true,
       });
       dispatch({ type: 'logoutSuccess', payload: data.message });
@@ -63,7 +63,7 @@ export const logout = () => async dispatch => {
     try {
       dispatch({ type: 'registerRequest' });
   
-      const { data } = await axios.post('http://localhost:4000/api/v1/register', formdata, {
+      const { data } = await axios.post(`${server}/register`, formdata, {
 
 //form data hai so content-type bhi form data assign kra hai        
         headers: {

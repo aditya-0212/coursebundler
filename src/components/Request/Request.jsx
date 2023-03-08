@@ -1,26 +1,54 @@
-import React from 'react'
+import React, { useEffect } from 'react';
 import {
-    Box,
-    Button,
-    Container,
-    FormLabel,
-    Heading,
-    Input,
-    Textarea,
-    VStack,
-  } from '@chakra-ui/react';
-  import { Link } from 'react-router-dom';
-  import { useState } from 'react';
+  Box,
+  Button,
+  Container,
+  FormLabel,
+  Heading,
+  Input,
+  Textarea,
+  VStack,
+} from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { courseRequest } from '../../redux/actions/other';
+import toast from 'react-hot-toast';
+
 const Request = () => {
-    const [name, setName] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [course, setCourse] = useState('');
+
+  const dispatch = useDispatch();
+  const {
+    loading,
+    error,
+    message: stateMessage,
+  } = useSelector(state => state.other);
+
+  const submitHandler = e => {
+    e.preventDefault();
+    dispatch(courseRequest(name, email, course));
+  };
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch({ type: 'clearError' });
+    }
+
+    if (stateMessage) {
+      toast.success(stateMessage);
+      dispatch({ type: 'clearMessage' });
+    }
+  }, [dispatch, error, stateMessage]);
   return (
     <Container h="92vh">
       <VStack h="full" justifyContent={'center'} spacing="16">
         <Heading children="Request New Course" />
 
-        <form  style={{ width: '100%' }}>
+        <form onSubmit={submitHandler} style={{ width: '100%' }}>
           <Box my={'4'}>
             <FormLabel htmlFor="name" children="Name" />
             <Input
@@ -60,7 +88,7 @@ const Request = () => {
           </Box>
 
           <Button
-            
+            isLoading={loading}
             my="4"
             colorScheme={'yellow'}
             type="submit"
@@ -80,7 +108,7 @@ const Request = () => {
         </form>
       </VStack>
     </Container>
-  )
-}
+  );
+};
 
-export default Request
+export default Request;

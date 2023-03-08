@@ -1,17 +1,26 @@
 import React,{useState} from 'react'
 import { Button, Container, Heading, Input, VStack } from '@chakra-ui/react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateProfile } from '../../redux/actions/profle';
-const UpdateProfile = () => {
-  const [name,setName] = useState('');
-  const [email,setEmail] = useState('');
+import { loadUser } from '../../redux/actions/user';
+import { useNavigate } from 'react-router-dom';
+const UpdateProfile = ({user}) => {
+  const [name,setName] = useState(user.name);
+  const [email,setEmail] = useState(user.email);
 
   //submitHandler function
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const submitHandler = e =>{
-    e.preventdefault();
-    dispatch(updateProfile(name,email));
+  const submitHandler = async e => {
+    e.preventDefault();
+    await dispatch(updateProfile(name, email));
+    dispatch(loadUser());
+    //jse hi update hoga data sidha profile page pr redirect krenge
+    navigate('/profile');
+
   };
+
+  const {loading} = useSelector(state=>state.profile);
   return (
    <Container py="16" minH={'90vh'}>
 <form onSubmit={submitHandler}>
@@ -38,7 +47,7 @@ const UpdateProfile = () => {
             focusBorderColor="yellow.500"
           />{' '}
           <Button
-            
+            isLoading={loading}
             w="full"
             colorScheme={'yellow'}
             type="submit"
