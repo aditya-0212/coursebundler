@@ -26,24 +26,21 @@ export const login = (email,password)=> async (dispatch)=>{
 
 //getMyProfile
 export const loadUser = () => async dispatch => {
-    try{
-        dispatch({type:'loadUserRequest'});
+  try {
+    dispatch({ type: 'loadUserRequest' });
 
-        //yha get request kr rhe hai isliye hame kuch bhi pass krne ki need nhi hai aur headers ki need bhi nhi hai
-        const { data } = await axios.get(
-            `${server}/me`,
-            {
-                withCredentials:true,
-            }
+    const { data } = await axios.get(
+      `${server}/me`,
 
-        );
-        
-        dispatch({type:'loadUserSuccess',payload:data.user});
-    }catch(error){
-        dispatch({type:'loadUserFail', payload: error.response.data.message});
-    }
-};
-
+      {
+        withCredentials: true,
+      }
+    );
+    dispatch({ type: 'loadUserSuccess', payload: data.user });
+  } catch (error) {
+    dispatch({ type: 'loadUserFail', payload: error.response.data.message });
+  }
+}
 //this is for logout
 export const logout = () => async dispatch => {
     try {
